@@ -22,3 +22,16 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Extension build artifacts
+*.zip
+*.crx
+*.pem
+
+# Environment files
+.env
+.env.local
+.env.production
+
+# Chrome extension
+web-ext-artifacts/

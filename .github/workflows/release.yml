@@ -1,0 +1,91 @@
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Release version (e.g., 1.0.1)'
+        required: true
+        type: string
+
+jobs:
+  create-release:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+
+    - name: Validate version format
+      run: |
+        if [[ ! "${{ inputs.version }}" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+          echo "Error: Version must be in format x.x.x (e.g., 1.0.1)"
+          exit 1
+        fi
+
+    - name: Check if version already exists
+      run: |
+        if git tag -l | grep -q "^v${{ inputs.version }}$"; then
+          echo "Error: Version v${{ inputs.version }} already exists"
+          exit 1
+        fi
+
+    - name: Update manifest version
+      run: |
+        node -e "
+          const fs = require('fs');
+          const manifest = JSON.parse(fs.readFileSync('manifest.json', 'utf8'));
+          manifest.version = '${{ inputs.version }}';
+          fs.writeFileSync('manifest.json', JSON.stringify(manifest, null, 4));
+          console.log('Updated manifest.json version to ${{ inputs.version }}');
+        "
+
+    - name: Update package.json version
+      run: |
+        npm version ${{ inputs.version }} --no-git-tag-version
+        echo "Updated package.json version to ${{ inputs.version }}"
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Build extension
+      run: npm run build
+
+    - name: Create extension archive
+      run: |
+        cd dist
+        zip -r ../chrome-rss-extension-v${{ inputs.version }}.zip .
+        cd ..
+
+    - name: Commit version changes
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add manifest.json package.json package-lock.json
+        git commit -m "chore: bump version to v${{ inputs.version }}"
+        git push
+
+    - name: Create and push tag
+      run: |
+        git tag v${{ inputs.version }}
+        git push origin v${{ inputs.version }}
+
+    - name: Create GitHub Release
+      uses: softprops/action-gh-release@v1
+      with:
+        tag_name: v${{ inputs.version }}
+        name: RSS Reader v${{ inputs.version }}
+        files: chrome-rss-extension-v${{ inputs.version }}.zip
+        generate_release_notes: true
+        draft: false
+        prerelease: false
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

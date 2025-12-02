@@ -1,16 +1,123 @@
-# React + Vite
+# Chrome RSS Reader Extension
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern RSS reader Chrome extension built with React, Vite, and Tailwind CSS.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 📖 Read RSS feeds in a clean, modern interface
+- 🔍 Filter between unread and all articles
+- ✅ Mark articles as read manually or automatically
+- 📱 Responsive design optimized for browser extension popup
+- 🎨 Beautiful UI with Tailwind CSS
 
-## React Compiler
+## Development
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Prerequisites
 
-## Expanding the ESLint configuration
+- Node.js 18 or higher
+- npm or yarn
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Setup
+
+```bash
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+
+# Build for production
+npm run build
+
+# Lint code
+npm run lint
+```
+
+### Load Extension in Chrome
+
+1. Run `npm run build` to create the `dist` folder
+2. Open Chrome and go to `chrome://extensions/`
+3. Enable "Developer mode"
+4. Click "Load unpacked" and select the `dist` folder
+
+## Automated Build & Release
+
+This project includes GitHub Actions workflows for automated building and releasing.
+
+### Automatic Builds
+
+The extension is automatically built on:
+- Push to `main` or `develop` branches
+- Pull requests to `main`
+- Tag pushes (creates releases)
+- Manual workflow dispatch
+
+### Creating a Release
+
+You can create a new release in two ways:
+
+#### Method 1: Manual Release Workflow
+1. Go to GitHub Actions in your repository
+2. Select the "Release" workflow
+3. Click "Run workflow"
+4. Enter the version number (e.g., `1.0.1`)
+5. Click "Run workflow"
+
+This will:
+- Update `manifest.json` and `package.json` versions
+- Build the extension
+- Create a git tag
+- Create a GitHub release with the extension zip file
+
+#### Method 2: Git Tag (Manual)
+```bash
+# Update version in manifest.json and package.json manually
+# Then create and push a tag
+git tag v1.0.1
+git push origin v1.0.1
+```
+
+### Build Artifacts
+
+Each build creates:
+- A zip file ready for Chrome Web Store upload
+- Build artifacts stored for 30 days
+- Automatic GitHub releases for tagged versions
+
+## Project Structure
+
+```
+src/
+├── components/          # React components
+│   ├── ArticleCard.jsx  # Individual article display
+│   ├── ArticleList.jsx  # Feed article list
+│   ├── FeedList.jsx     # RSS feed management
+│   ├── Home.jsx         # Main article feed
+│   └── NavBar.jsx       # Navigation
+├── utils/               # Utility functions
+│   ├── rss.js          # RSS parsing logic
+│   └── storage.js      # Chrome storage utilities
+└── background/         # Extension background scripts
+    └── service-worker.js
+```
+
+## Chrome Web Store Deployment
+
+To deploy to Chrome Web Store (optional):
+
+1. Uncomment the deploy section in `.github/workflows/build-extension.yml`
+2. Set up Chrome Web Store API credentials
+3. Add `BPP_KEYS` secret to your repository
+4. The extension will auto-deploy on tagged releases
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Run tests and linting
+5. Submit a pull request
+
+## License
+
+MIT License
