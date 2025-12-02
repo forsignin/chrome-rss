@@ -31,6 +31,7 @@ export default defineConfig([
         varsIgnorePattern: '^[A-Z_]',
         argsIgnorePattern: '^_'
       }],
+      'no-empty': ['error', { 'allowEmptyCatch': true }],
     },
   },
   {

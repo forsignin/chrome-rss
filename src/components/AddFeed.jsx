@@ -22,7 +22,7 @@ export const AddFeed = ({ onFeedAdded }) => {
             });
             setUrl('');
             if (onFeedAdded) onFeedAdded(savedFeeds);
-        } catch (_err) {
+        } catch {
             setError('Failed to fetch feed. Please check the URL.');
         } finally {
             setLoading(false);

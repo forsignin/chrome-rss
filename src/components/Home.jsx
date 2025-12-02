@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { fetchAllFeeds } from '../utils/rss';
 import { getReadStatus, markAsRead } from '../utils/storage';
 import { Loader2, RefreshCw } from 'lucide-react';
@@ -12,7 +12,7 @@ export const Home = ({ feeds }) => {
     const [filter, setFilter] = useState('unread'); // 'all' | 'unread'
     const [expandedArticles, setExpandedArticles] = useState({}); // { [id]: boolean }
 
-    const loadData = async (force = false) => {
+    const loadData = useCallback(async (force = false) => {
         try {
             if (force) setRefreshing(true);
             else setLoading(true);
@@ -30,7 +30,7 @@ export const Home = ({ feeds }) => {
             setLoading(false);
             setRefreshing(false);
         }
-    };
+    }, [feeds]);
 
     useEffect(() => {
         if (feeds.length > 0) {
@@ -38,7 +38,7 @@ export const Home = ({ feeds }) => {
         } else {
             setLoading(false);
         }
-    }, [feeds]); // loadData is recreated on each render, so we don't include it
+    }, [feeds, loadData]);
 
     const handleArticleClick = (article) => {
         const id = article.id || article.link;

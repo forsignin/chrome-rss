@@ -12,7 +12,7 @@ export const ArticleList = ({ feed, onBack }) => {
             try {
                 const data = await fetchFeed(feed.url);
                 setArticles(data.items || []);
-            } catch (_err) {
+            } catch {
                 setError('Failed to load articles.');
             } finally {
                 setLoading(false);
