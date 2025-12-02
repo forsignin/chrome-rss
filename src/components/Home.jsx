@@ -38,7 +38,7 @@ export const Home = ({ feeds }) => {
         } else {
             setLoading(false);
         }
-    }, [feeds]);
+    }, [feeds]); // loadData is recreated on each render, so we don't include it
 
     const handleArticleClick = (article) => {
         const id = article.id || article.link;

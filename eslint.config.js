@@ -15,7 +15,11 @@ export default defineConfig([
     ],
     languageOptions: {
       ecmaVersion: 2020,
-      globals: globals.browser,
+      globals: {
+        ...globals.browser,
+        ...globals.webextensions,
+        chrome: 'readonly',
+      },
       parserOptions: {
         ecmaVersion: 'latest',
         ecmaFeatures: { jsx: true },
@@ -23,7 +27,19 @@ export default defineConfig([
       },
     },
     rules: {
-      'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }],
+      'no-unused-vars': ['error', { 
+        varsIgnorePattern: '^[A-Z_]',
+        argsIgnorePattern: '^_'
+      }],
+    },
+  },
+  {
+    files: ['tailwind.config.js', 'vite.config.js', 'postcss.config.js'],
+    languageOptions: {
+      globals: {
+        ...globals.node,
+        require: 'readonly',
+      },
     },
   },
 ])
