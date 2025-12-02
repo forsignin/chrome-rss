@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import { Check } from 'lucide-react';
 
 export const ArticleCard = ({ item, isRead, isExpanded, onToggleExpand, onMarkAsRead }) => {
     const bottomRef = useRef(null);
@@ -34,6 +35,11 @@ export const ArticleCard = ({ item, isRead, isExpanded, onToggleExpand, onMarkAs
         onMarkAsRead();
     };
 
+    const handleMarkAsReadClick = (e) => {
+        e.stopPropagation();
+        onMarkAsRead();
+    };
+
     return (
         <div
             onClick={onToggleExpand}
@@ -44,9 +50,20 @@ export const ArticleCard = ({ item, isRead, isExpanded, onToggleExpand, onMarkAs
                 <span className="text-[10px] font-bold uppercase tracking-wider text-gray-500 bg-gray-100 px-1.5 py-0.5 rounded">
                     {item.feedTitle}
                 </span>
-                <span className="text-xs text-gray-400 whitespace-nowrap">
-                    {item.pubDate ? new Date(item.pubDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : ''}
-                </span>
+                <div className="flex items-center gap-2">
+                    {!isRead && (
+                        <button
+                            onClick={handleMarkAsReadClick}
+                            className="p-1 hover:bg-green-100 rounded-full transition-colors group/read"
+                            title="Mark as read"
+                        >
+                            <Check className="w-3 h-3 text-gray-400 group-hover/read:text-green-600" />
+                        </button>
+                    )}
+                    <span className="text-xs text-gray-400 whitespace-nowrap">
+                        {item.pubDate ? new Date(item.pubDate).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : ''}
+                    </span>
+                </div>
             </div>
 
             <h3 className={`font-semibold mb-1 text-sm leading-snug ${isRead ? 'text-gray-500 font-normal' : 'text-gray-900 group-hover:text-blue-600'

@@ -9,7 +9,7 @@ export const Home = ({ feeds }) => {
     const [readArticles, setReadArticles] = useState({});
     const [loading, setLoading] = useState(true);
     const [refreshing, setRefreshing] = useState(false);
-    const [filter, setFilter] = useState('all'); // 'all' | 'unread'
+    const [filter, setFilter] = useState('unread'); // 'all' | 'unread'
     const [expandedArticles, setExpandedArticles] = useState({}); // { [id]: boolean }
 
     const loadData = async (force = false) => {
@@ -42,12 +42,49 @@ export const Home = ({ feeds }) => {
 
     const handleArticleClick = (article) => {
         const id = article.id || article.link;
-
-        // Toggle expansion
-        setExpandedArticles(prev => ({
-            ...prev,
-            [id]: !prev[id]
-        }));
+        const isCurrentlyExpanded = expandedArticles[id];
+        
+        if (isCurrentlyExpanded) {
+            // Collapsing: first save the current position of the element
+            const element = document.querySelector(`[data-article-id="${id}"]`);
+            const scrollContainer = document.querySelector('.overflow-y-auto');
+            
+            if (element && scrollContainer) {
+                const elementRect = element.getBoundingClientRect();
+                const containerRect = scrollContainer.getBoundingClientRect();
+                const currentScrollTop = scrollContainer.scrollTop;
+                const relativeTop = elementRect.top - containerRect.top;
+                const targetScrollPosition = currentScrollTop + relativeTop;
+                
+                // Toggle expansion
+                setExpandedArticles(prev => ({
+                    ...prev,
+                    [id]: false
+                }));
+                
+                // Restore position after DOM update
+                requestAnimationFrame(() => {
+                    requestAnimationFrame(() => {
+                        scrollContainer.scrollTo({
+                            top: targetScrollPosition,
+                            behavior: 'smooth'
+                        });
+                    });
+                });
+            } else {
+                // Fallback if elements not found
+                setExpandedArticles(prev => ({
+                    ...prev,
+                    [id]: false
+                }));
+            }
+        } else {
+            // Expanding: just toggle
+            setExpandedArticles(prev => ({
+                ...prev,
+                [id]: true
+            }));
+        }
     };
 
     const handleMarkAsRead = async (id) => {
@@ -87,18 +124,18 @@ export const Home = ({ feeds }) => {
                 <div className="flex items-center gap-2">
                     <div className="flex bg-gray-100 rounded-lg p-1">
                         <button
-                            onClick={() => setFilter('all')}
-                            className={`px-3 py-1 text-xs font-medium rounded-md transition-all ${filter === 'all' ? 'bg-white text-blue-600 shadow-sm' : 'text-gray-500 hover:text-gray-700'
-                                }`}
-                        >
-                            All
-                        </button>
-                        <button
                             onClick={() => setFilter('unread')}
                             className={`px-3 py-1 text-xs font-medium rounded-md transition-all ${filter === 'unread' ? 'bg-white text-blue-600 shadow-sm' : 'text-gray-500 hover:text-gray-700'
                                 }`}
                         >
                             Unread
+                        </button>
+                        <button
+                            onClick={() => setFilter('all')}
+                            className={`px-3 py-1 text-xs font-medium rounded-md transition-all ${filter === 'all' ? 'bg-white text-blue-600 shadow-sm' : 'text-gray-500 hover:text-gray-700'
+                                }`}
+                        >
+                            All
                         </button>
                     </div>
                     <button
@@ -123,14 +160,15 @@ export const Home = ({ feeds }) => {
                         const isExpanded = !!expandedArticles[id];
 
                         return (
-                            <ArticleCard
-                                key={`${id}-${index}`}
-                                item={item}
-                                isRead={isRead}
-                                isExpanded={isExpanded}
-                                onToggleExpand={() => handleArticleClick(item)}
-                                onMarkAsRead={() => handleMarkAsRead(id)}
-                            />
+                            <div key={`${id}-${index}`} data-article-id={id}>
+                                <ArticleCard
+                                    item={item}
+                                    isRead={isRead}
+                                    isExpanded={isExpanded}
+                                    onToggleExpand={() => handleArticleClick(item)}
+                                    onMarkAsRead={() => handleMarkAsRead(id)}
+                                />
+                            </div>
                         );
                     })
                 )}
