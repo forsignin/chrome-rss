@@ -12,6 +12,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.get_version.outputs.version }}
     
     steps:
     - name: Checkout code
@@ -20,7 +22,7 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: '18'
+        node-version: '22'
         cache: 'npm'
 
     - name: Install dependencies
@@ -32,10 +34,23 @@ jobs:
     - name: Build extension
       run: npm run build
 
+    - name: Verify build output
+      run: |
+        if [ ! -d "dist" ]; then
+          echo "Error: dist directory not found after build"
+          exit 1
+        fi
+        echo "Build output contents:"
+        ls -la dist/
+
     - name: Get version from manifest
       id: get_version
       run: |
-        VERSION=$(node -p "require('./manifest.json').version")
+        if [ ! -f "manifest.json" ]; then
+          echo "Error: manifest.json not found"
+          exit 1
+        fi
+        VERSION=$(node -p "JSON.parse(require('fs').readFileSync('manifest.json', 'utf8')).version")
         echo "version=$VERSION" >> $GITHUB_OUTPUT
         echo "Extension version: $VERSION"
 
@@ -44,6 +59,8 @@ jobs:
         cd dist
         zip -r ../chrome-rss-extension-v${{ steps.get_version.outputs.version }}.zip .
         cd ..
+        echo "Archive created: chrome-rss-extension-v${{ steps.get_version.outputs.version }}.zip"
+        ls -la chrome-rss-extension-v${{ steps.get_version.outputs.version }}.zip
         
     - name: Upload build artifacts
       uses: actions/upload-artifact@v4
@@ -56,7 +73,7 @@ jobs:
 
     - name: Create Release (on tag)
       if: startsWith(github.ref, 'refs/tags/v')
-      uses: softprops/action-gh-release@v1
+      uses: softprops/action-gh-release@v2
       with:
         files: chrome-rss-extension-v${{ steps.get_version.outputs.version }}.zip
         generate_release_notes: true
