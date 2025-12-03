@@ -2,31 +2,42 @@ import React, { useEffect, useRef } from 'react';
 import { Check } from 'lucide-react';
 
 export const ArticleCard = ({ item, isRead, isExpanded, onToggleExpand, onMarkAsRead }) => {
-    const bottomRef = useRef(null);
+    const contentRef = useRef(null);
 
     useEffect(() => {
         if (!isExpanded || isRead) return;
 
-        let timeoutId;
-        const observer = new IntersectionObserver(
-            (entries) => {
-                if (entries[0].isIntersecting) {
-                    timeoutId = setTimeout(() => {
-                        onMarkAsRead();
-                    }, 1000); // 1 second delay
-                    observer.disconnect();
-                }
-            },
-            { threshold: 1.0 }
-        );
+        const handleScroll = () => {
+            const element = contentRef.current;
+            if (!element) return;
 
-        if (bottomRef.current) {
-            observer.observe(bottomRef.current);
+            // 检查是否滚动到底部（允许5px的误差）
+            const isAtBottom = element.scrollTop + element.clientHeight >= element.scrollHeight - 5;
+            
+            if (isAtBottom) {
+                // 延迟500ms标记为已读，给用户时间看到底部内容
+                setTimeout(() => {
+                    onMarkAsRead();
+                }, 500);
+            }
+        };
+
+        const element = contentRef.current;
+        if (element) {
+            element.addEventListener('scroll', handleScroll);
+            
+            // 如果内容不需要滚动（内容很短），立即检查
+            if (element.scrollHeight <= element.clientHeight) {
+                setTimeout(() => {
+                    onMarkAsRead();
+                }, 2000); // 2秒后自动标记为已读
+            }
         }
 
         return () => {
-            observer.disconnect();
-            if (timeoutId) clearTimeout(timeoutId);
+            if (element) {
+                element.removeEventListener('scroll', handleScroll);
+            }
         };
     }, [isExpanded, isRead, onMarkAsRead]);
 
@@ -72,24 +83,38 @@ export const ArticleCard = ({ item, isRead, isExpanded, onToggleExpand, onMarkAs
             </h3>
 
             {(!isRead || isExpanded) && (
-                <div className={`text-sm text-gray-600 leading-relaxed ${!isExpanded ? 'line-clamp-2 text-xs' : 'mt-2 space-y-2'}`}>
-                    {isExpanded && item.imageUrl && (
-                        <img src={item.imageUrl} alt="" className="w-full h-48 object-cover rounded-md mb-3" />
+                <div className={`text-sm text-gray-600 leading-relaxed ${
+                    !isExpanded 
+                        ? 'line-clamp-2 text-xs' 
+                        : 'mt-2 h-64 overflow-y-auto scrollbar-elegant pr-2'
+                }`}
+                    ref={isExpanded ? contentRef : null}>
+                    {isExpanded ? (
+                        <div className="space-y-3">
+                            {item.imageUrl && (
+                                <img src={item.imageUrl} alt="" className="w-full h-40 object-cover rounded-lg shadow-sm" />
+                            )}
+                            <div
+                                className="prose prose-sm max-w-none prose-blue prose-img:rounded-md prose-img:max-w-full leading-relaxed"
+                                dangerouslySetInnerHTML={{
+                                    __html: item.fullContent || item.contentSnippet || ''
+                                }}
+                            />
+                            {/* 底部标记，用于确保有足够的内容可滚动 */}
+                            <div className="h-4"></div>
+                        </div>
+                    ) : (
+                        <div
+                            dangerouslySetInnerHTML={{
+                                __html: (item.contentSnippet || item.content || '').replace(/<[^>]+>/g, '')
+                            }}
+                        />
                     )}
-                    <div
-                        className={isExpanded ? "prose prose-sm max-w-none prose-blue prose-img:rounded-md prose-img:max-w-full" : ""}
-                        dangerouslySetInnerHTML={{
-                            __html: isExpanded
-                                ? (item.fullContent || item.contentSnippet || '')
-                                : (item.contentSnippet || item.content || '').replace(/<[^>]+>/g, '')
-                        }}
-                    />
                 </div>
             )}
 
             {isExpanded && (
                 <div className="mt-3 pt-3 border-t border-gray-100 flex justify-end">
-                    <div ref={bottomRef} className="h-1 w-1 opacity-0 pointer-events-none absolute bottom-0" />
                     <a
                         href={item.link}
                         target="_blank"

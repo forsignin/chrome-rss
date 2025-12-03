@@ -1,3 +1,63 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* 自定义滚动条样式 */
+@layer utilities {
+  /* 可调整大小的样式 - 只允许水平调整 */
+  .resize-x {
+    resize: horizontal;
+  }
+  
+  /* 隐藏滚动条 */
+  .scrollbar-hide {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;  /* Chrome, Safari and Opera */
+  }
+  
+  /* 调整大小手柄样式 - 只显示垂直调整线 */
+  .resize-x::-webkit-resizer {
+    background: linear-gradient(0deg, transparent 0px, transparent 2px, #d1d5db 2px, #d1d5db 4px, transparent 4px);
+    border-radius: 0 0 4px 0;
+  }
+  
+  /* 优雅的滚动条样式 */
+  .scrollbar-elegant {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(156, 163, 175, 0.4) transparent;
+  }
+  
+  .scrollbar-elegant::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  .scrollbar-elegant::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 3px;
+  }
+  
+  .scrollbar-elegant::-webkit-scrollbar-thumb {
+    background: rgba(156, 163, 175, 0.3);
+    border-radius: 3px;
+    transition: all 0.2s ease;
+    opacity: 0.4;
+  }
+  
+  .scrollbar-elegant::-webkit-scrollbar-thumb:hover {
+    background: rgba(156, 163, 175, 0.6);
+    opacity: 1;
+  }
+  
+  .scrollbar-elegant::-webkit-scrollbar-thumb:active {
+    background: rgba(107, 114, 128, 0.8);
+  }
+  
+  /* 鼠标悬停时显示滚动条 */
+  .scrollbar-elegant:hover::-webkit-scrollbar-thumb {
+    opacity: 1;
+  }
+}
