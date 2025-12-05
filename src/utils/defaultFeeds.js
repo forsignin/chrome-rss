@@ -15,14 +15,14 @@ const LOCAL_DEFAULT_CONFIG = {
     feeds: [
         {
             title: 'BBC 中文网',
-            url: 'https://feeds.bbci.co.uk/zhongwen/simp/rss.xml',
-            description: 'BBC 中文网新闻订阅',
+            url: 'https://rsshub.app/bbc/chinese',
+            description: 'BBC 中文网新闻订阅 (RSSHub)',
             category: '新闻'
         },
         {
             title: '知乎日报',
-            url: 'https://daily.zhihu.com/rss',
-            description: '知乎日报每日精选',
+            url: 'https://rsshub.app/zhihu/daily',
+            description: '知乎日报每日精选 (RSSHub)',
             category: '综合'
         },
         {
@@ -45,8 +45,8 @@ const LOCAL_DEFAULT_CONFIG = {
         },
         {
             title: 'V2EX',
-            url: 'https://www.v2ex.com/index.xml',
-            description: 'V2EX 创意工作者社区',
+            url: 'https://rsshub.app/v2ex/topics/latest',
+            description: 'V2EX 创意工作者社区 (RSSHub)',
             category: '科技'
         }
     ]

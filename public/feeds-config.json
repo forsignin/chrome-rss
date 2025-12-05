@@ -1,5 +1,5 @@
 {
-  "version": "1.1.0",
+  "version": "1.2.0",
   "lastUpdated": "2025-12-05",
   "categories": [
     {
@@ -41,14 +41,14 @@
   "feeds": [
     {
       "title": "BBC 中文网",
-      "url": "https://feeds.bbci.co.uk/zhongwen/simp/rss.xml",
-      "description": "BBC 中文网新闻订阅",
+      "url": "https://rsshub.app/bbc/chinese",
+      "description": "BBC 中文网新闻订阅 (RSSHub)",
       "category": "新闻"
     },
     {
       "title": "纽约时报中文网",
-      "url": "https://cn.nytimes.com/rss.html",
-      "description": "纽约时报中文版资讯",
+      "url": "https://rsshub.app/nytimes/dual",
+      "description": "纽约时报中文版资讯 (RSSHub)",
       "category": "新闻"
     },
     {
@@ -59,14 +59,14 @@
     },
     {
       "title": "端传媒",
-      "url": "https://theinitium.com/newsfeed/",
-      "description": "端传媒深度报道",
+      "url": "https://rsshub.app/theinitium/channel/latest",
+      "description": "端传媒深度报道 (RSSHub)",
       "category": "新闻"
     },
     {
       "title": "知乎日报",
-      "url": "https://daily.zhihu.com/rss",
-      "description": "知乎日报每日精选",
+      "url": "https://rsshub.app/zhihu/daily",
+      "description": "知乎日报每日精选 (RSSHub)",
       "category": "综合"
     },
     {
@@ -83,8 +83,8 @@
     },
     {
       "title": "V2EX",
-      "url": "https://www.v2ex.com/index.xml",
-      "description": "V2EX 创意工作者社区",
+      "url": "https://rsshub.app/v2ex/topics/latest",
+      "description": "V2EX 创意工作者社区 (RSSHub)",
       "category": "科技"
     },
     {
@@ -143,7 +143,7 @@
     },
     {
       "title": "Reddit - Programming",
-      "url": "https://www.reddit.com/r/programming/.rss",
+      "url": "https://www.reddit.com/r/programming.rss",
       "description": "Reddit 编程板块",
       "category": "开发"
     },
@@ -221,7 +221,7 @@
     },
     {
       "title": "Behance Featured",
-      "url": "https://www.behance.net/feeds/projects",
+      "url": "https://www.behance.net/feeds/projects.rss",
       "description": "Behance 精选作品",
       "category": "设计"
     },
@@ -257,7 +257,7 @@
     },
     {
       "title": "果壳网",
-      "url": "https://www.guokr.com/rss/",
+      "url": "https://www.guokr.com/rss",
       "description": "科学人文资讯",
       "category": "综合"
     },
@@ -265,12 +265,6 @@
       "title": "机核网",
       "url": "https://www.gcores.com/rss",
       "description": "游戏文化内容",
-      "category": "综合"
-    },
-    {
-      "title": "好奇心日报",
-      "url": "https://www.qdaily.com/feed.xml",
-      "description": "好奇心日报文章",
       "category": "综合"
     }
   ]
