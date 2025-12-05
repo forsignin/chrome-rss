@@ -1,0 +1,277 @@
+{
+  "version": "1.1.0",
+  "lastUpdated": "2025-12-05",
+  "categories": [
+    {
+      "id": "all",
+      "name": "全部",
+      "icon": "📑"
+    },
+    {
+      "id": "新闻",
+      "name": "新闻",
+      "icon": "📰"
+    },
+    {
+      "id": "科技",
+      "name": "科技",
+      "icon": "💻"
+    },
+    {
+      "id": "开发",
+      "name": "开发",
+      "icon": "👨‍💻"
+    },
+    {
+      "id": "设计",
+      "name": "设计",
+      "icon": "🎨"
+    },
+    {
+      "id": "博客",
+      "name": "博客",
+      "icon": "✍️"
+    },
+    {
+      "id": "综合",
+      "name": "综合",
+      "icon": "🌐"
+    }
+  ],
+  "feeds": [
+    {
+      "title": "BBC 中文网",
+      "url": "https://feeds.bbci.co.uk/zhongwen/simp/rss.xml",
+      "description": "BBC 中文网新闻订阅",
+      "category": "新闻"
+    },
+    {
+      "title": "纽约时报中文网",
+      "url": "https://cn.nytimes.com/rss.html",
+      "description": "纽约时报中文版资讯",
+      "category": "新闻"
+    },
+    {
+      "title": "Reuters 路透社",
+      "url": "https://www.reutersagency.com/feed/",
+      "description": "路透社国际新闻",
+      "category": "新闻"
+    },
+    {
+      "title": "端传媒",
+      "url": "https://theinitium.com/newsfeed/",
+      "description": "端传媒深度报道",
+      "category": "新闻"
+    },
+    {
+      "title": "知乎日报",
+      "url": "https://daily.zhihu.com/rss",
+      "description": "知乎日报每日精选",
+      "category": "综合"
+    },
+    {
+      "title": "少数派",
+      "url": "https://sspai.com/feed",
+      "description": "少数派科技文章",
+      "category": "科技"
+    },
+    {
+      "title": "Hacker News",
+      "url": "https://hnrss.org/frontpage",
+      "description": "Hacker News 热门文章",
+      "category": "科技"
+    },
+    {
+      "title": "V2EX",
+      "url": "https://www.v2ex.com/index.xml",
+      "description": "V2EX 创意工作者社区",
+      "category": "科技"
+    },
+    {
+      "title": "Solidot",
+      "url": "https://www.solidot.org/index.rss",
+      "description": "Solidot 科技资讯",
+      "category": "科技"
+    },
+    {
+      "title": "Engadget 中文版",
+      "url": "https://chinese.engadget.com/rss.xml",
+      "description": "Engadget 科技产品资讯",
+      "category": "科技"
+    },
+    {
+      "title": "TechCrunch",
+      "url": "https://techcrunch.com/feed/",
+      "description": "TechCrunch 科技创业资讯",
+      "category": "科技"
+    },
+    {
+      "title": "The Verge",
+      "url": "https://www.theverge.com/rss/index.xml",
+      "description": "The Verge 科技新闻",
+      "category": "科技"
+    },
+    {
+      "title": "Ars Technica",
+      "url": "https://feeds.arstechnica.com/arstechnica/index",
+      "description": "Ars Technica 科技深度报道",
+      "category": "科技"
+    },
+    {
+      "title": "Wired",
+      "url": "https://www.wired.com/feed/rss",
+      "description": "Wired 科技文化杂志",
+      "category": "科技"
+    },
+    {
+      "title": "36氪",
+      "url": "https://36kr.com/feed",
+      "description": "36氪科技创业资讯",
+      "category": "科技"
+    },
+    {
+      "title": "虎嗅网",
+      "url": "https://www.huxiu.com/rss/0.xml",
+      "description": "虎嗅网商业科技资讯",
+      "category": "科技"
+    },
+    {
+      "title": "GitHub Trending",
+      "url": "https://mshibanami.github.io/GitHubTrendingRSS/daily/all.xml",
+      "description": "GitHub 每日热门项目",
+      "category": "开发"
+    },
+    {
+      "title": "Reddit - Programming",
+      "url": "https://www.reddit.com/r/programming/.rss",
+      "description": "Reddit 编程板块",
+      "category": "开发"
+    },
+    {
+      "title": "阮一峰的网络日志",
+      "url": "https://www.ruanyifeng.com/blog/atom.xml",
+      "description": "阮一峰的技术博客",
+      "category": "开发"
+    },
+    {
+      "title": "廖雪峰的官方网站",
+      "url": "https://www.liaoxuefeng.com/feed",
+      "description": "廖雪峰的编程教程",
+      "category": "开发"
+    },
+    {
+      "title": "云风的 BLOG",
+      "url": "https://blog.codingnow.com/atom.xml",
+      "description": "云风的游戏开发博客",
+      "category": "开发"
+    },
+    {
+      "title": "酷壳 CoolShell",
+      "url": "https://coolshell.cn/feed",
+      "description": "陈皓的技术博客",
+      "category": "开发"
+    },
+    {
+      "title": "美团技术团队",
+      "url": "https://tech.meituan.com/feed/",
+      "description": "美团技术博客",
+      "category": "开发"
+    },
+    {
+      "title": "淘系技术",
+      "url": "https://fed.taobao.org/atom.xml",
+      "description": "淘宝前端团队博客",
+      "category": "开发"
+    },
+    {
+      "title": "Node.js Blog",
+      "url": "https://nodejs.org/en/feed/blog.xml",
+      "description": "Node.js 官方博客",
+      "category": "开发"
+    },
+    {
+      "title": "CSS-Tricks",
+      "url": "https://css-tricks.com/feed/",
+      "description": "CSS 技巧和前端开发",
+      "category": "开发"
+    },
+    {
+      "title": "Smashing Magazine",
+      "url": "https://www.smashingmagazine.com/feed/",
+      "description": "Web 设计开发资源",
+      "category": "开发"
+    },
+    {
+      "title": "Dev.to",
+      "url": "https://dev.to/feed",
+      "description": "开发者社区文章",
+      "category": "开发"
+    },
+    {
+      "title": "优设网",
+      "url": "https://www.uisdc.com/feed",
+      "description": "优设网设计文章",
+      "category": "设计"
+    },
+    {
+      "title": "Dribbble Popular",
+      "url": "https://dribbble.com/shots/popular.rss",
+      "description": "Dribbble 热门设计",
+      "category": "设计"
+    },
+    {
+      "title": "Behance Featured",
+      "url": "https://www.behance.net/feeds/projects",
+      "description": "Behance 精选作品",
+      "category": "设计"
+    },
+    {
+      "title": "Awwwards Blog",
+      "url": "https://www.awwwards.com/blog/feed/",
+      "description": "网页设计灵感",
+      "category": "设计"
+    },
+    {
+      "title": "Design Milk",
+      "url": "https://design-milk.com/feed/",
+      "description": "现代设计资讯",
+      "category": "设计"
+    },
+    {
+      "title": "王垠的博客",
+      "url": "https://www.yinwang.org/atom.xml",
+      "description": "王垠的思考和见解",
+      "category": "博客"
+    },
+    {
+      "title": "小众软件",
+      "url": "https://www.appinn.com/feed/",
+      "description": "小众软件推荐",
+      "category": "博客"
+    },
+    {
+      "title": "异次元软件世界",
+      "url": "https://www.iplaysoft.com/feed",
+      "description": "优质软件推荐",
+      "category": "博客"
+    },
+    {
+      "title": "果壳网",
+      "url": "https://www.guokr.com/rss/",
+      "description": "科学人文资讯",
+      "category": "综合"
+    },
+    {
+      "title": "机核网",
+      "url": "https://www.gcores.com/rss",
+      "description": "游戏文化内容",
+      "category": "综合"
+    },
+    {
+      "title": "好奇心日报",
+      "url": "https://www.qdaily.com/feed.xml",
+      "description": "好奇心日报文章",
+      "category": "综合"
+    }
+  ]
+}
